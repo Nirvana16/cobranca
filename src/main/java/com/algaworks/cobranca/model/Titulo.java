@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 /**
  * Sempre que lidarmos com uma entidade no Spring, precisamos mapear a classe como @Entity
  * para essa classe foi criado os atributos, gerado os GETTERS & SETTERS e também o hashcode e
@@ -41,6 +44,7 @@ public class Titulo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long codigo;
 	
+	private String descricao;
 	
 	/**
 	 * @Temporal(TemporalType.DATE) é mais uma notação que facilita, e muito , a vida do
@@ -49,9 +53,22 @@ public class Titulo {
 	 * e o TemporalType significa que só queremos a DATA, ignorando a hora e minutos.
 	 */
 	
+	/*
+	 * O @DateTimeFormat (pattern = "dd/MM/yyyy")
+	 * Ver o comentario em CobrancaApplication primeiro. 
+	 * Ele define o formato da data que queremos passar para o banco.
+	 */
+	
+	@DateTimeFormat (pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
-	private String descricao;
+	
+	/*
+	 * @NumberFormat(pattern = "#,##0.00")
+	 * Mesma explicação do DateTime. 
+	 */
+	
+	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
 	
 	/**

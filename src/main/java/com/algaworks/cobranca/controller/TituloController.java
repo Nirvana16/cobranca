@@ -1,10 +1,12 @@
 package com.algaworks.cobranca.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.algaworks.cobranca.model.Titulo;
+import com.algaworks.cobranca.repository.Titulos;
 
 /**
  * Toda classe Controler no Spring precisa ter a notação @Controller, assim como as demais 
@@ -16,6 +18,15 @@ import com.algaworks.cobranca.model.Titulo;
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
+	
+	/**
+	 * O @Autowired serve para indicar de onde esta vindo
+	 * o objeto que será passado para dentro dos metodos do controle 
+	 * referente ao private Titulos titulos; sem a notação receberiamos
+	 * um erro pois o método não teria como identificar o objeto em questao
+	 */	
+	@Autowired
+	private Titulos titulos;
 	
 	@RequestMapping("/novo")
 	public String novo() {
@@ -44,9 +55,9 @@ public class TituloController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(Titulo titulo) {
-		//Salvar no bd
+		titulos.save(titulo);			
 		
-		System.out.println(">>>" +titulo.getDescricao());
+		System.out.println(titulo.getDescricao() + " salvo no bd com sucesso");
 		
 		return "CadastroTitulo";
 	}
