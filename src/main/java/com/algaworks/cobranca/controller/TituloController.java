@@ -87,10 +87,14 @@ public class TituloController {
 		/*
 		 * mv.addObject("todosStatusTitulo", StatusTitulo.values());
 		 * caso não houvesse o método public List<StatusTitulo> todosStatusTitulo(){
-		 */
-		
+		 */	
 		
 		return mv;
+	}
+	
+	@RequestMapping
+	public String pesquisar() {		
+		return "PesquisaTitulos";
 	}
 	
 	/*
