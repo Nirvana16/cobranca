@@ -57,9 +57,28 @@
 				<div class="form-group">
 					<label for="status" class="col-sm-2 control-label">Status</label>
 					<div class="col-sm-2">
-						<select class="form-control" name="status">
-							<option value="PENDENTE">Pendente</option>
-							<option value="RECEBIDO">Recebido</option>
+						<select class="form-control" name="status">							
+							<option th:each="status : ${todosStatusTitulo}" th:value="${status}" th:text="${status.descricao}"></option>
+													
+						<!-- 
+							th:each="status: ${todosStatusTitulo}
+							Significa a iteração do Thymeleaf
+							esse método faz com que a variavél que foi criada "status"
+							receba os objetos presentes em todosStatusTitulos. 
+							"para cada todosStatusTitulos faça....."
+							
+							para cada enum presente dentro da interface, percorra o array
+							e vá adicionando as tags <options>" 
+							
+							o th:text="${status.descricao} é o texto que será exibido
+							isso é equivalente ao .getDescricao que o thymeleaf faz 
+							dentro da variavel status, sempre que for usar uma variavel do 
+							thymeleaf devemos usar o "${}" e sempre que utilizarmos uma 
+							funcionalidade dele usamos o "th:" na frente, logo o 
+							th.value refere-se ao thymeleaf e nao ao html.
+ 							
+							-->
+							
 						</select>
 					</div>
 				</div>

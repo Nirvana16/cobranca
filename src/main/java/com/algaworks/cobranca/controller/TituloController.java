@@ -1,11 +1,16 @@
 package com.algaworks.cobranca.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.algaworks.cobranca.model.StatusTitulo;
 import com.algaworks.cobranca.model.Titulo;
 import com.algaworks.cobranca.repository.Titulos;
 
@@ -30,8 +35,27 @@ public class TituloController {
 	private Titulos titulos;
 	
 	@RequestMapping("/novo")
-	public String novo() {
-		return "CadastroTitulo";
+	public ModelAndView novo() {
+		ModelAndView mv = new ModelAndView("CadastroTitulo");
+		/**
+		 * mv.addObject("TodosStatusTitulo", StatusTitulo.values());
+		 * Retorna um array com todos os Enun's presentes na interface
+		 * isso é utilizado para iterarmos sobre a coleção com o 
+		 * Thymeleaf dentro da Viewer, implementando a combobox de modo
+		 * dinamico, sem a necessidade de colocarmos item a item dentro
+		 * da view
+		 */
+		/*
+		 * Este metodo deveria ter:
+		 * mv.addObject("todosStatusTitulo", StatusTitulo.values());
+		 * completar o retorno para o th, mas como também precisariamos colocar
+		 * ele novamente no outro método Post, que retorna para /titulos 
+		 * estariamos repetindo código, para isso criamos o método
+		 * public List<StatusTitulo> todosStatusTitulo(){ 
+		 */
+	
+		
+		return mv;
 	}
 	
 	/**
@@ -60,7 +84,24 @@ public class TituloController {
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject("mensagem", "Titulo Salvo com Sucesso");
 		
+		/*
+		 * mv.addObject("todosStatusTitulo", StatusTitulo.values());
+		 * caso não houvesse o método public List<StatusTitulo> todosStatusTitulo(){
+		 */
+		
+		
 		return mv;
+	}
+	
+	/*
+	 * esse método retorna uma lista de arrays
+	 * ele tem a mesma função caso usassemos 
+	 * mv.addObject("todosStatusTitulo", StatusTitulo.values());
+	 * dentro dos metodos anteriores.
+	 */
+	@ModelAttribute("todosStatusTitulo")
+	public List<StatusTitulo> todosStatusTitulo(){
+		return Arrays.asList(StatusTitulo.values());		
 	}
 
 }
