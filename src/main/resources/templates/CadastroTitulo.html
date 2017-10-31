@@ -1,23 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:th="http://www.thymeleaf.org">
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+		layout:decorator="LayoutPadrao">
 <head>
-<meta charset="UTF-8"/>
-<title>Cadastro de Titulo</title>
-<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+	<title>Cadastro de Titulo</title>
 </head>
-<body> 
-	<nav class="navbar navbar-inverse navbar-static-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">
-					<img alt="AlgaWorks" src="/images/logo-algaworks.png" />
-				</a>
-			</div>
-		</div>	
-	</nav>
 
+<section layout:fragment="conteudo">
 	<form class="form-horizontal" method="POST" action="/titulos">
 	
 		<!-- th:if="${!#strings.isEmpty(mensagem)} É Um expressao do 
@@ -33,7 +23,10 @@
 	
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h1 class="panel-title">Novo Titulo</h1>
+				<div class="clearfix">
+					<h1 class="panel-title aw-titulo-panel">Novo Titulo</h1>
+					<a class="btn btn-link aw-link-panel" href="/titulos">Voltar para Pesquisa</a>
+				</div>
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
@@ -91,8 +84,5 @@
 			</div>
 		</div>
 	</form>
-
-<script src="/js/jquery-2.1.4.min.js"></script>
-<script src="/js/bootstrao.min.js"></script>
-</body>
+</section>
 </html>
