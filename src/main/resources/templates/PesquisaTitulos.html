@@ -28,8 +28,47 @@
 					</tr>
 				</thead>
 					<tbody>
+						<tr th:each="titulo : ${titulos}">
+							<td class="text-center" th:text="${titulo.codigo}">1</td>
+							<td th:text="${titulo.descricao}"></td>
+							<td class="text-center" th:text="${{titulo.dataVencimento}}"></td> 
+							
+							<!-- Thymeleaf usando duas chaves ele usa a formatação que definimos para data e valor-->
+							
+							<td class="text-right" th:text="|R$ ${{titulo.valor}}|">1</td>
+							
+							<!-- Para colocarmos o R$ Antes do valor usamos o pipe | no inicio e no fim da expressao
+								 do Thymeleaf, assim ele entende que o que esta antes do $ é algo q deve ser escrito
+								 e nao parte da expressão da sintaxe dele. -->
+								 
+							<td class="text-center">
+								<span class="label" th:text="${titulo.status.descricao}"
+									 th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}">Success</span>
+								
+								<!-- Parar colocarmos um label: verde quando pago e vermelho quando pendente podemos usar
+									 uma forma não muito "correta" com uma expressao da Thymleaf 
+									 th:classappend="${#strings.toString(titulo.status) == 'PENDENTE' ? 'label-danger' : 'label-success'} 
+									 adicionar a classe O Resultado da pergunta: O status (que foi convertido para string com o método 
+									 strings.toString()) é igual (==) ao valor do enun (PENDENTE) ? caso TRUE adicionar label-danger
+									 do contrario ( : ) adicionar label-sucess 
+									 Porem como fica muito complicado para ler essa expressao foi adicionado o método, na entidade, para
+									 verificarmos se o titulo esta pendente ou nao.-->
+									 
+									 <!-- th:classappend="${titulo.pendente ? 'label-danger' : 'label-success'}"
+									 	  como criamos o método, no Model, isPendente, ele já retorna um boolean entao o Th já consegue
+									 	  simplificara pergunta com: "titulo é pendente?, se for faça...." -->
+									 
+								
+							</td>
+							
+							
+							<td class="text-center">
+								
+							</td>
+						</tr>
 						<tr> 
-							<td colspan="6">Nenhum titulo encontrado</td>
+							<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum titulo encontrado</td>
+							<!-- se a lista de titulos estiver vazio, exiba a mensagem....-->
 						</tr>
 					</tbody>
 			</table>

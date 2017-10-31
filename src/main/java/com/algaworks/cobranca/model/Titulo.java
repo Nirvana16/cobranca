@@ -114,6 +114,18 @@ public class Titulo {
 	public void setStatus(StatusTitulo status) {
 		this.status = status;
 	}
+	
+	/*
+	 * Esse método age apenas como forma complementar a view
+	 * ele verificar se o status deste objeto é igual a pendente ou nao
+	 * se for o caso ele retorna um boolen que usamos na view para simplificar 
+	 * a condicional no thymeleaf
+	 */
+	public boolean isPendente() {
+		return StatusTitulo.PENDENTE.equals(this.status);
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
