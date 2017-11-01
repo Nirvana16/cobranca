@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,9 +78,15 @@ public class TituloController {
 	 * passar diretamente o OBJETO, para que isso ocorra é só mapear com o local
 	 * para onde devem ser enviados os dados com o metodo e o Verbo HTML
 	 */
+	/*
+	 * @Validated
+	 * Continuando a notação do bean validation precisamos, aqui, falar
+	 * para o spring validar o metodo.
+	 */
+	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView salvar(Titulo titulo) {
+	public ModelAndView salvar(@Validated Titulo titulo) {
 		titulos.save(titulo);	
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject("mensagem", "Titulo Salvo com Sucesso");

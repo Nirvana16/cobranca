@@ -38,13 +38,20 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<dependency>
-		<!-- Para consultar o banco de dados h2 voce pode acessar no seu navegador: localhost:8080/h2-console  -->
+		<!-- Para consultar o banco de dados h2 voce pode acessar no seu navegador: localhost:8080/h2-console 
+		<dependency>		
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+		 -->
+		 
+		 <!-- adicionando o bd Mysql -->
+		 <dependency>		
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		 
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

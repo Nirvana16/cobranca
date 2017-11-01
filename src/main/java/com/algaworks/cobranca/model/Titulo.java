@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -67,7 +68,19 @@ public class Titulo {
 	 * @NumberFormat(pattern = "#,##0.00")
 	 * Mesma explicação do DateTime. 
 	 */
+	/**
+	 * @NotNull eh uma das anotações que fazem parte do
+	 * BeanValidations que servem para filtrarmos que tipo de 
+	 * dados podem ser inseridos no nosso campos das paginas.
+	 * Obivamente @NotNull serve para não aceitar que seja 
+	 * salvo um valor nulo. 
+	 * 
+	 * Além disso também é preciso complementar a validacao
+	 * no metodo dentro do controler.
+	 */
 	
+	
+	@NotNull
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
 	
