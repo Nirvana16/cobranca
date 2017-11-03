@@ -15,41 +15,8 @@
 
 	<form class="form-horizontal" method="POST" action="/titulos" th:object="${titulo}">
 	
-		<!-- th:if="${!#strings.isEmpty(mensagem)} É Um expressao do 
-			Thymeleaf para verificar se uma variavel (mensagem) 
-			não (! no começo) esta vazia, com isso vamos garantir 
-			que o alerta só seja exibido quando a condição dessa expressao for TRUE 
-			o Atributo mensagem tem q ser adicionado no Controller-->
-			
-		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
-			<span th:text="${mensagem}">Título salvo com sucesso!!!</span>
-		</div>	
+		<div layout:include="Mensagem"></div>
 		
-		<!--  Este div a seguir é excluisvo para caso de erro na hora de salvar o titulo
-			  e exiba alguma coisa para o usuario -->
-
-		<!--  th:if="${#fields.hasAnyErrors()}" faz o seguinte: Se no ojeto (titulo),
-			  o qual foi criado no form, algum dos seus campos (fields) tem algum 
-			  erro (hasAnyErros()) exiba a mensagem (<span>) para o usuario 
-			  porem, como podemos ter vários e varios erros foi criado uma nova div
-			  para que possmos percore-la buscando o erro especifico -->
-
-		<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-
-		<!-- "detailedError: ${#fields.detailedErrors()}"
-			  recebe uma lista de erros que foi gerado dentro do metodo 
-			  detailedErros 
-
-			  ${detailedError.message}
-			  exibe a mensagem deo erro que foi encontrado -->
-
-			<div th:each="detailedError: ${#fields.detailedErrors()}">
-				<span th:text="${detailedError.message}"></span>
-			</div>
-		</div>	
-		
-	
-	
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="clearfix">
@@ -82,6 +49,7 @@
 						<input type="text" class="form-control" id="valor" name="valor" />
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label for="status" class="col-sm-2 control-label">Status</label>
 					<div class="col-sm-2">
