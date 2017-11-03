@@ -8,7 +8,12 @@
 </head>
 
 <section layout:fragment="conteudo">
-	<form class="form-horizontal" method="POST" action="/titulos">
+
+		<!-- o th:object="${titulo}" Foi usado para tratamento de erro
+			neste caso o thymeleaf cria um objeto onde poderemos validar os 
+			campos (fields) do nosso objeto titulo -->
+
+	<form class="form-horizontal" method="POST" action="/titulos" th:object="${titulo}">
 	
 		<!-- th:if="${!#strings.isEmpty(mensagem)} É Um expressao do 
 			Thymeleaf para verificar se uma variavel (mensagem) 
@@ -17,8 +22,32 @@
 			o Atributo mensagem tem q ser adicionado no Controller-->
 			
 		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
-			<span th:text="${mensagem}">Título salvo!</span>
+			<span th:text="${mensagem}">Título salvo com sucesso!!!</span>
 		</div>	
+		
+		<!--  Este div a seguir é excluisvo para caso de erro na hora de salvar o titulo
+			  e exiba alguma coisa para o usuario -->
+
+		<!--  th:if="${#fields.hasAnyErrors()}" faz o seguinte: Se no ojeto (titulo),
+			  o qual foi criado no form, algum dos seus campos (fields) tem algum 
+			  erro (hasAnyErros()) exiba a mensagem (<span>) para o usuario 
+			  porem, como podemos ter vários e varios erros foi criado uma nova div
+			  para que possmos percore-la buscando o erro especifico -->
+
+		<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+
+		<!-- "detailedError: ${#fields.detailedErrors()}"
+			  recebe uma lista de erros que foi gerado dentro do metodo 
+			  detailedErros 
+
+			  ${detailedError.message}
+			  exibe a mensagem deo erro que foi encontrado -->
+
+			<div th:each="detailedError: ${#fields.detailedErrors()}">
+				<span th:text="${detailedError.message}"></span>
+			</div>
+		</div>	
+		
 	
 	
 		<div class="panel panel-default">
@@ -28,20 +57,26 @@
 					<a class="btn btn-link aw-link-panel" href="/titulos">Voltar para Pesquisa</a>
 				</div>
 			</div>
-			<div class="panel-body">
+			<!-- th:classappend="${#fields.hasErrors('valor')} ? has-error"
+					  tem erros no campo valor ?
+	
+					    has-error"
+					   se tiver, a classe tem erro entao deixe vermelho -->
+					   
+			<div class="panel-body" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
 				<div class="form-group">
 					<label for="descricao" class="col-sm-2 control-label">Descricao</label>
 					<div class="col-sm-4">
 						<input type="text" class="form-control" id="descricao" name="descricao"/>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" th:classappend="${#fields.hasErrors('dataVencimento')} ? has-error">
 					<label for="dataVencimento" class="col-sm-2 control-label">Data de vencimento</label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="dataVencimento" name="dataVencimento"/>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error" >
 					<label for="valor" class="col-sm-2 control-label">Valor</label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="valor" name="valor" />

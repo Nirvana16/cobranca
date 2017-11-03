@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,8 +55,15 @@ public class TituloController {
 		 * estariamos repetindo código, para isso criamos o método
 		 * public List<StatusTitulo> todosStatusTitulo(){ 
 		 */
-	
 		
+		/**
+		 * Lá na view existe no form action="/titulos" th:object="${titulo}
+		 * só que, de inicio, não há nenhum objeto titulo disponibilizado
+		 * para view de inicio quando ele executa um verbo POST
+		 * entao vamos, no nomento em que a pagina é criada disponbilizar esse
+		 * objeto com o mv.addObject(new Titulo());
+		 */
+		mv.addObject(new Titulo());		
 		return mv;
 	}
 	
@@ -82,13 +90,23 @@ public class TituloController {
 	 * @Validated
 	 * Continuando a notação do bean validation precisamos, aqui, falar
 	 * para o spring validar o metodo.
+	 * 
+	 * O spring ja possui o objeto Errors, para já pegar o erro que 
+	 * possa ocorrer e permitir que o dev consiga tratar ele.
+	 * dentro deste objeto existe o metodo "hasErrors" usamos ele 
+	 * para verificar se o objeto errors tem erro. 
 	 */
 	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView salvar(@Validated Titulo titulo) {
-		titulos.save(titulo);	
+	public ModelAndView salvar(@Validated Titulo titulo, Errors errors) {
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
+		if (errors.hasErrors()) {
+			return mv;
+		}		
+		
+		titulos.save(titulo);	
+		
 		mv.addObject("mensagem", "Titulo Salvo com Sucesso");
 		
 		/*

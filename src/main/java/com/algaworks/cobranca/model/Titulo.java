@@ -11,8 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -45,6 +49,13 @@ public class Titulo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long codigo;
 	
+	/** @NotEmpty(message= "Descricao é obrigatória")
+	 * Notação do hibernate, mesma função da validação explicada
+	 * no valor, vide lá priemiro
+	 */
+	
+	@NotEmpty(message= "Descricao é obrigatória")
+	@Size(max = 60, message = "A Descricao não pode conter mais de 60 caracteres")
 	private String descricao;
 	
 	/**
@@ -60,6 +71,7 @@ public class Titulo {
 	 * Ele define o formato da data que queremos passar para o banco.
 	 */
 	
+	@NotNull(message = "Data não pode ficar em branco")
 	@DateTimeFormat (pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
@@ -80,7 +92,11 @@ public class Titulo {
 	 */
 	
 	
-	@NotNull
+	
+	
+	@NotNull(message = "Valor não pode ficar em branco")
+	@DecimalMin(value = "0.01", message = "valor não pode ser zero")
+	@DecimalMax(value = "9999999.99", message="valor não pode ser maior que 9.999.999,99")
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
 	
