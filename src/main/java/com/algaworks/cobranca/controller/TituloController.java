@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.cobranca.model.StatusTitulo;
 import com.algaworks.cobranca.model.Titulo;
@@ -99,14 +100,16 @@ public class TituloController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView salvar(@Validated Titulo titulo, Errors errors) {
-		ModelAndView mv = new ModelAndView("CadastroTitulo");
+	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {
+		ModelAndView mv = new ModelAndView();
 		if (errors.hasErrors()) {
-			return mv;
+			/*
+			 * Retorna o nome da pagina HTML
+			 */
+			return "CadastroTitulo";
 		}		
 		
-		titulos.save(titulo);	
-		
+		titulos.save(titulo);			
 		mv.addObject("mensagem", "Titulo Salvo com Sucesso");
 		
 		/*
@@ -114,7 +117,32 @@ public class TituloController {
 		 * caso não houvesse o método public List<StatusTitulo> todosStatusTitulo(){
 		 */	
 		
-		return mv;
+		/**
+		 * return new ModelAndView("redirect:/titulos/novo")
+		 * Com o o uso do th:field="{*algumaCoisa}" toda vez que o titulo 
+		 * fosse salvo com sucesso os campos ainda iriam permacer com os dados já
+		 * inseridos, para limpar podemos usar um redirecionamento onde a
+		 * view eh redirecionada para pagina /titulos/novo.
+		 * 
+		 * Só que deixando apenas assim o redirect joga o usuario de volta no metodo salvar, este metodo
+		 * e a mensagem de "titulo salvo com sucesso" nao apareceria, pois ele volta voce 
+		 * la no começo e ele não saberia o que fazer com as informaçẽos existentes
+		 * para corrigir isso a Spring tem o RedirectAttributes attributes
+		 * que é justamente os atributos redirecionaveis com isso nós passamos 
+		 * attributes.addFlashAttribute("mensagem", "Titulo Salvo com Sucesso");
+		 */
+		
+		/*
+		 * O Método foi alterado para STRING para simplificarmos seu funcionamento
+		 * toda a parte em azul no ultimo bloco de comentários nao é mais necessaria, mas
+		 * mantive a mesma de forma informativa
+		 */
+		
+		attributes.addFlashAttribute("mensagem", "Titulo Salvo com Sucesso");
+		/*
+		 * Retorna o redirecionamento para uma URL
+		 */
+		return "redirect:/titulos/novo";
 	}
 	
 	@RequestMapping
