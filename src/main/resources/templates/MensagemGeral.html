@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+	<!-- th:if="${!#strings.isEmpty(mensagem)} É Um expressao do 
+		Thymeleaf para verificar se uma variavel (mensagem) 
+		não (! no começo) esta vazia, com isso vamos garantir 
+		que o alerta só seja exibido quando a condição dessa expressao for TRUE 
+		o Atributo mensagem tem q ser adicionado no Controller-->
+		
+	<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+		<span th:text="${mensagem}">Título salvo com sucesso!!!</span>
+	</div>	
+
+</html>

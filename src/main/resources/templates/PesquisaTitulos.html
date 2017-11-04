@@ -8,6 +8,8 @@
 </head>
 
 <section layout:fragment="conteudo">
+	<div layout:include="MensagemGeral"></div>
+	
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="clearfix">
@@ -71,6 +73,19 @@
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 								
+								<!-- Uma das forma de se fazer o modal no bootstrapp e usando o data no link a baixo -->
+								
+								<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal" 
+									th:attr="data-codigo=${titulo.codigo}, data-descricao=${titulo.descricao}"> 
+									
+									<!-- th:attr="data-codigo=${titulo.codigo}"serve para que possamos acessar esse atributo la do JS
+										 só que quem vai criar esse atributo pra gente é o thymeleaf, atrapves do th:attr. 
+										 Quando ele encontrar isso ele vai transformar a expressao th:attr="data-codigo=${titulo.codigo}"
+										 em : data-codigo="${titulo.codigo}" como se ela ja fosse nativa do JS
+									 -->									
+									<span class="glyphicon glyphicon-remove"></span>
+								</a>
+									
 							</td>
 						</tr>
 						<tr> 
@@ -80,6 +95,12 @@
 					</tbody>
 			</table>
 		</div>
+		<!-- modal que aparece ao querer excluir -->
+		<div layout:include="DialogoConfirmacaoExclusao"></div>
+		
+		
+		
+		
 	</div>	
 </section>
 </html>

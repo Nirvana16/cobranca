@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+	<div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1" data-keyboard="false" data-backdrop="static"> <!-- data-keyboard="false" data-backdrop="static" impede que o usuario saia do modal clicando fora ou com ESC -->
+		<div class="modal-dialog">
+		
+			<!-- formulario que é enviado ao clicar no botao excluir -->
+			<form action="/titulos" method="POST">
+			
+			<!-- <form th:attr="data-url-base=@{/}" method="POST"> -->
+				<input type="hidden" name="_method" value="DELETE" /> <!-- isso significa que podemos mapear o delete la no controler -->
+				<!-- <input type="hidden" name="id" value="DELETE" />	-->
+			
+				<div class="modal-content">
+					<div class="modal-header">					
+						<h4 class="modal-title">Você tem certeza?</h4>
+					</div>
+	
+					<div class="modal-body">
+						<span>Tem certeza que deseja apagar?</span>
+					</div>
+	
+					<div class="modal-footer">
+						<!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+						<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary">Excluir</button> <!-- esse camarada é quem envia o formulario lá de cima -->
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+
+
+</html>

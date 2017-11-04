@@ -205,6 +205,29 @@ public class TituloController {
 	}
 	
 	/*
+	 * a Lógica por trás do excluir é praticamente a mesma 
+	 * do editar, voce faz o RequestMapping dizendo que o tipo 
+	 * do Method é o DELETE e ele ja cai no metodo excluir
+	 * só que voce precisa passar o código de quem será removido
+	 * entao fazemos basicamente a mesma coisa do editar.
+	 */
+	
+	/**
+	 * nao precisamos converter diretamente o codigo para o objeto
+	 * Titulo. Já da para excluirmos diretamente pelo código
+	 * nao tem o pq de recupera um objeto se nao vamos usa-lo
+	 */
+	
+	@RequestMapping(value="{codigo}", method = RequestMethod.DELETE)
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		titulos.delete(codigo);
+		
+		//para exibir a mensagem igual fizemos com o Salvar.
+		attributes.addFlashAttribute("mensagem", "Titulo Excluido com Sucesso");
+		return "redirect:/titulos";		
+	}
+	
+	/*
 	 * esse método retorna uma lista de arrays
 	 * ele tem a mesma função caso usassemos 
 	 * mv.addObject("todosStatusTitulo", StatusTitulo.values());
