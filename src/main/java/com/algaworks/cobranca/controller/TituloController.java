@@ -48,6 +48,7 @@ public class TituloController {
 		 * dinamico, sem a necessidade de colocarmos item a item dentro
 		 * da view
 		 */
+		
 		/*
 		 * Este metodo deveria ter:
 		 * mv.addObject("todosStatusTitulo", StatusTitulo.values());
