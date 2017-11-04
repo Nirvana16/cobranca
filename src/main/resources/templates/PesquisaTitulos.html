@@ -59,10 +59,17 @@
 									 	  simplificara pergunta com: "titulo é pendente?, se for faça...." -->
 									 
 								
-							</td>
-							
-							
+							</td>					
 							<td class="text-center">
+							
+								<!-- 
+									th:href=@{/titulos/{codigo}(codigo=${titulo.codigo})}
+									antes estava com href="/titulos/4" só que como queremos buscar o código de forma dinamica
+									usamos o th, com isso nós criamos uma varaivel que recebe o titulo código daquele span
+								 -->
+								<a class="btn btn-link btn-xs" th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</a>
 								
 							</td>
 						</tr>

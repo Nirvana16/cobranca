@@ -31,8 +31,14 @@
 					    has-error"
 					   se tiver, a classe tem erro entao deixe vermelho -->
 					   
-			<div class="panel-body" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
-				<div class="form-group">
+			<div class="panel-body">
+			
+				<!-- Esse imput serve para na hora de editar ele ja buscar o codigo do item  a ser 
+					editado -->
+					
+				<input type="hidden" th:field="*{codigo}"/>
+				
+				<div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
 					<label for="descricao" class="col-sm-2 control-label">Descricao</label>
 					<div class="col-sm-4">
 					
