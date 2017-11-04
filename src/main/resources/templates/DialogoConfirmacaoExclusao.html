@@ -6,12 +6,15 @@
 	<div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1" data-keyboard="false" data-backdrop="static"> <!-- data-keyboard="false" data-backdrop="static" impede que o usuario saia do modal clicando fora ou com ESC -->
 		<div class="modal-dialog">
 		
-			<!-- formulario que é enviado ao clicar no botao excluir -->
-			<form action="/titulos" method="POST">
+			<!-- formulario que é enviado ao clicar no botao excluir 
+				Estou deixando aqui para fins academicos, poremos para corrigir o bug 
+				da acumulação de ID vamos ter q refazer isso aqui, igual fiz a seguir
+				transformando a actions em um atributo do thymeleaf				
+			<form action="/titulos" method="POST">	-->
 			
-			<!-- <form th:attr="data-url-base=@{/}" method="POST"> -->
+			<form th:attr="data-url-base='/titulos'" method="POST">											
+			<!-- Deveria ser <form th:attr="data-url-base=@{/}" method="POST">  mas isso costuma bugar .... -->			
 				<input type="hidden" name="_method" value="DELETE" /> <!-- isso significa que podemos mapear o delete la no controler -->
-				<!-- <input type="hidden" name="id" value="DELETE" />	-->
 			
 				<div class="modal-content">
 					<div class="modal-header">					

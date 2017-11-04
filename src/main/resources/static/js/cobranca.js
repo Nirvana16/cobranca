@@ -21,7 +21,8 @@ $('#confirmacaoExclusaoModal').on('show.bs.modal', function(event){
 	//aqui vamos pegar o modal que esta no form
 	var form = modal.find('form');
 	//aqui pegamos a String "/titulos" que esta lá no action ... <form action="/titulos" 
-	var action = form.attr('action');
+	//var action = form.attr('action'); DEIXEI ESSA LINHA COMENTADA POIS ASSIM ELA BUGAVA A CORRECAO É FAZENDO IGUAL ESTA A BAIXO.
+	var action = form.data('url-base')
 	/*
 	 * Podemos acabar encontrando bugs por conta da barra no final da String acima
 	 * dessa forma podemos usar do if a baixo para driblarmos essa ocorrencia
